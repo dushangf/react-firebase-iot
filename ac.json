@@ -2,8 +2,8 @@
   "ac_list": {
     "ac_0": {
       "name": "AC-1",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -12,8 +12,8 @@
     },
     "ac_1": {
       "name": "AC-2",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -22,8 +22,8 @@
     },
     "ac_2": {
       "name": "AC-3",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -32,8 +32,8 @@
     },
     "ac_3": {
       "name": "AC-4",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -42,8 +42,8 @@
     },
     "ac_4": {
       "name": "AC-5",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -52,8 +52,8 @@
     },
     "ac_5": {
       "name": "AC-6",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -62,8 +62,8 @@
     },
     "ac_6": {
       "name": "AC-7",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -72,8 +72,8 @@
     },
     "ac_7": {
       "name": "AC-8",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -82,8 +82,8 @@
     },
     "ac_8": {
       "name": "AC-9",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -92,8 +92,8 @@
     },
     "ac_9": {
       "name": "AC-10",
-      "auto_on": "0900",
-      "auto_off": "1800",
+      "auto_on": "9",
+      "auto_off": "9",
       "manual": {
         "status": true,
         "man_on": "",
@@ -103,6 +103,9 @@
   },
   "temperatures": {
     "temp_1": 18,
-    "temp_2": 22
-  }
+    "temp_2": 22,
+    "temp_3": 22
+  },
+  "ir_frequency": 0,
+  "temperature_frequency": 0
 }

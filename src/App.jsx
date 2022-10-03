@@ -14,16 +14,19 @@ const App = () => {
   const [change, setchange] = useState('');
   const [time, settime] = useState('');
   const [temperatures, settemperatures] = useState([]);
-  const [signal_frequency, setsignal_frequency] = useState(0);
-  const [frequency_modal, setfrequency_modal] = useState(false);
-  const [frequency, setfrequency] = useState(0);
+  const [ir_frequency, setir_frequency] = useState(0);
+  const [temp_frequency, settemp_frequency] = useState(0);
+  const [ir_frequency_modal, setir_frequency_modal] = useState(false);
+  const [temp_frequency_modal, settemp_frequency_modal] = useState(false);
 
   const getOutletData = async () => {
     const dbRef = ref(db, '/Gampaha');
     onValue(dbRef, (snapshot) => {
+      console.log(snapshot.val());
       setac_list(snapshot.val().ac_list);
       settemperatures(snapshot.val().temperatures);
-      setsignal_frequency(snapshot.val().signal_frequency);
+      setir_frequency(snapshot.val().ir_signal_frequency);
+      settemp_frequency(snapshot.val().temperature_signal_frequency);
     });
   };
 
@@ -46,9 +49,22 @@ const App = () => {
     set(dbRef, time);
   };
 
-  const updateFrequency = () => {
-    const dbRef = ref(db, `Gampaha/signal_frequency`);
-    set(dbRef, frequency);
+  const updateFrequencyIR = () => {
+    const dbRef = ref(db, `Gampaha/ir_signal_frequency`);
+    set(dbRef, ir_frequency);
+  };
+
+  const updateFrequencyTemp = () => {
+    const dbRef = ref(db, `Gampaha/temperature_signal_frequency`);
+    set(dbRef, ir_frequency);
+  };
+
+  const changeTemperature = (id, temp) => {
+    if (temp > 26 || temp < 20) {
+      return;
+    }
+    const dbRef = ref(db, `Gampaha/ac_list/ac_${id}/web_temperature`);
+    set(dbRef, temp);
   };
 
   return (
@@ -75,17 +91,31 @@ const App = () => {
               </div>
             ))}
             <div
-              className='max-w-max bg-green-200 rounded px-2 py-1 sm:px-2 sm:flex items-center cursor-pointer transition duration-150 hover:ease-out hover:bg-green-300 hover:scale-105'
-              onClick={() => setfrequency_modal(true)}
+              className='max-w-max bg-green-200 rounded px-2 py-1 sm:px-2 sm:flex items-center cursor-pointer transition duration-150 hover:ease-out hover:bg-green-300 hover:scale-105 mx-2 w-64'
+              onClick={() => setir_frequency_modal(true)}
             >
-              <p className='sm:mr-1'>Signal Frequency: </p>
-              <p>{signal_frequency} mins</p>
+              <p className='sm:mr-1'>IR Signal Frequency: </p>
+              <p>{ir_frequency} mins</p>
             </div>
-            {frequency_modal && (
+            <div
+              className='max-w-max bg-green-200 rounded px-2 py-1 sm:px-2 sm:flex items-center cursor-pointer transition duration-150 hover:ease-out hover:bg-green-300 hover:scale-105 mx-2 w-64'
+              onClick={() => settemp_frequency_modal(true)}
+            >
+              <p className='sm:mr-1'>Temperature Signal Frequency: </p>
+              <p>{temp_frequency} mins</p>
+            </div>
+            {ir_frequency_modal && (
               <FrequencyModal
-                setfrequency_modal={setfrequency_modal}
-                setfrequency={setfrequency}
-                updateFrequency={updateFrequency}
+                setfrequency_modal={setir_frequency_modal}
+                setfrequency={setir_frequency}
+                updateFrequency={updateFrequencyIR}
+              />
+            )}
+            {temp_frequency_modal && (
+              <FrequencyModal
+                setfrequency_modal={settemp_frequency_modal}
+                setfrequency={settemp_frequency}
+                updateFrequency={updateFrequencyTemp}
               />
             )}
           </div>
@@ -97,6 +127,7 @@ const App = () => {
               <span className='sm:mx-1'>No</span>
             </p>
             <p className='w-screen'>Switch</p>
+            <p className='w-full px-1 sm:px-0'>Temperature</p>
             <p className='w-full px-1 sm:px-0'>Auto ON</p>
             <p className='w-full px-1 sm:px-0'>Auto OFF</p>
             <p className='w-full px-1 sm:px-0'>Manual ON</p>
@@ -156,6 +187,25 @@ const App = () => {
                     checkedIcon={false}
                     uncheckedIcon={false}
                   />
+                </div>
+                <div className='flex'>
+                  <button
+                    onClick={() =>
+                      changeTemperature(idx, ac.web_temperature + 2)
+                    }
+                    className='px-1 w-6 flex justify-center items-center hover:bg-white/25 duration-200 rounded border border-white'
+                  >
+                    +
+                  </button>
+                  <p className='px-3'>{ac.web_temperature}</p>
+                  <button
+                    onClick={() =>
+                      changeTemperature(idx, ac.web_temperature - 2)
+                    }
+                    className='px-1 w-6 flex justify-center items-center hover:bg-white/25 duration-200 rounded border border-white'
+                  >
+                    -
+                  </button>
                 </div>
                 <p
                   className='font-semibold hover:bg-green-400 px-2 rounded-full cursor-pointer transition duration-150 hover:ease-out hover:text-black'
